@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelly Services | Find Your Next Job</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE VARIABLES --- */
+        :root {
+            --primary: #005EB8; /* Kelly Blue */
+            --primary-dark: #003d73;
+            --secondary: #f0f4f8;
+            --accent: #00b894; /* Success Green */
+            --text-main: #2d3748;
+            --text-light: #718096;
+            --white: #ffffff;
+            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; color: var(--text-main); background: var(--white); line-height: 1.6; }
+        a { text-decoration: none; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .nav-btn:hover { background: var(--primary-dark); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, #005EB8 0%, #003d73 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; font-weight: 700; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+        
+        .main-cta {
+            background: var(--accent);
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+            display: inline-block;
+        }
+        .main-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 184, 148, 0.5); }
+
+        /* --- TRUST BAR --- */
+        .trust-bar { background: var(--secondary); padding: 20px 0; text-align: center; border-bottom: 1px solid var(--border); }
+        .trust-text { color: var(--text-light); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .logos { display: flex; justify-content: center; gap: 40px; opacity: 0.6; flex-wrap: wrap; }
+        .logo-placeholder { font-weight: 700; color: #a0aec0; font-size: 1.2rem; display: flex; align-items: center; gap: 5px; }
+
+        /* --- SECTIONS COMMON --- */
+        section { padding: 70px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.2rem; color: var(--text-main); margin-bottom: 10px; }
+        .section-header p { color: var(--text-light); }
+
+        /* --- JOB CATEGORIES (CORE REQUEST) --- */
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .job-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .job-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        
+        .job-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+        .job-icon {
+            width: 50px;
+            height: 50px;
+            background: #e6f0fa;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 1.5rem;
+        }
+        .job-title { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        
+        .job-body { padding: 25px; }
+        .job-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tag { background: var(--secondary); color: var(--text-light); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+        .tag.full { background: #e6fffa; color: #2c7a7b; }
+        
+        .job-details li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; color: var(--text-light); font-size: 0.95rem; }
+        .check { color: var(--accent); font-weight: bold; }
+
+        .job-footer { padding: 20px 25px; background: #fcfcfc; border-top: 1px solid var(--border); }
+        .apply-link {
+            display: block;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .apply-link:hover { background: var(--primary-dark); }
+
+        /* --- WHY CHOOSE US --- */
+        .features { background: var(--white); }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center; }
+        .feature-box h3 { margin: 15px 0; font-size: 1.2rem; }
+        .feature-box p { color: var(--text-light); font-size: 0.95rem; }
+        .f-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; display: block; }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials { background: var(--secondary); }
+        .review-card { background: white; padding: 30px; border-radius: 10px; box-shadow: var(--shadow); }
+        .stars { color: #FFD700; margin-bottom: 15px; }
+        .user { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: #ddd; object-fit: cover; }
+        .user-info h4 { font-size: 1rem; margin-bottom: 2px; }
+        .user-info span { font-size: 0.8rem; color: var(--text-light); }
+
+        /* --- FOOTER --- */
+        footer { background: #1a202c; color: white; padding: 60px 0 20px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h4 { margin-bottom: 20px; color: var(--white); }
+        .footer-col a { display: block; color: #a0aec0; margin-bottom: 10px; font-size: 0.9rem; }
+        .footer-col a:hover { color: var(--white); }
+        
+        .security-badges { display: flex; gap: 15px; margin-top: 20px; }
+        .badge { display: flex; align-items: center; gap: 8px; color: #a0aec0; font-size: 0.8rem; border: 1px solid #4a5568; padding: 5px 10px; border-radius: 4px; }
+        .badge svg { fill: var(--accent); width: 14px; height: 14px; }
+
+        .copyright { text-align: center; border-top: 1px solid #2d3748; padding-top: 20px; color: #718096; font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+                Kelly Services
+            </div>
+            <a href="https://www.aplfb8trk.com/T18R619/B9PC5ZQ/?sub1=hfct" class="nav-btn">Apply Now</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="container">
+            <h1>Your Next Career Move Starts Here</h1>
+            <p>Immediate openings in Warehouse, Housekeeping, Admin, and more. Top pay rates, flexible hours, and benefits included.</p>
+            <a href="https://www.aplfb8trk.com/T18R619/B9PC5ZQ/?sub1=hfct" class="main-cta">Start Application Now</a>
+            <div style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                <span style="color: var(--accent)">●</span> 100% Free to Apply &nbsp; | &nbsp; 
+                <span style="color: var(--accent)">●</span> No Experience Required for Entry Roles
+            </div>
+        </div>
+    </header>
+
+    <!-- TRUST LOGOS -->
+    <div class="trust-bar">
+        <div class="container">
+            <p class="trust-text">Trusted Partner To Industry Leaders</p>
+            <div class="logos">
+                <div class="logo-placeholder">AMAZON</div>
+                <div class="logo-placeholder">FEDEX</div>
+                <div class="logo-placeholder">HOME DEPOT</div>
+                <div class="logo-placeholder">CVS</div>
+                <div class="logo-placeholder">WALMART</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JOB CATEGORIES -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Job Categories</h2>
+                <p>We are currently hiring for the following positions in your area.</p>
+            </div>
+
+            <div class="job-grid">
+                <!-- WAREHOUSE JOB -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-title">Warehouse Associate</div>
+                        <div class="job-icon">📦</div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-tags">
+                            <span class="tag full">Full Time</span>
+                            <span class="tag">Entry Level</span>
+                        </div>
+                        <ul class="job-details">
+                            <li><span class="check">✓</span> $18 - $24 / Hour</li>
+                            <li><span class="check">✓</span> Weekly Paychecks</li>
+                            <li><span class="check">✓</span> Overtime Available</li>
+                            <li><span class="check">✓</span> Climate Controlled Facility</li>
+                        </ul>
+                    </div>
+                    <div class="job-footer">
+                        <a href="https://www.aplfb8trk.com/T18R619/B9PC5ZQ/?sub1=hfct" class="apply-link">Apply for Warehouse</a>
+                    </div>
+                </div>
+
+                <!-- HOUSEKEEPING JOB -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-title">Housekeeping Staff</div>
+                        <div class="job-icon">🧹</div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-tags">
+                            <span class="tag full">Full Time</span>
+                            <span class="tag">Part Time</span>
+                        </div>
+                        <ul class="job-details">
+                            <li><span class="check">✓</span> $16 - $20 / Hour</li>
+                            <li><span class="check">✓</span> Flexible Shifts</li>
+                            <li><span class="check">✓</span> Tips & Bonuses</li>
+                            <li><span class="check">✓</span> Friendly Environment</li>
+                        </ul>
+                    </div>
+                    <div class="job-footer">
+                        <a href="https://www.aplfb8trk.com/T18R619/B9PC5ZQ/?sub1=hfct" class="apply-link">Apply for Housekeeping</a>
+                    </div>
+                </div>
+
+                <!-- ADMIN JOB -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-title">Admin / Clerical</div>
+                        <div class="job-icon">💻</div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-tags">
+                            <span class="tag full">Office Based</span>
+                            <span class="tag">Mon-Fri</span>
+                        </div>
+                        <ul class="job-details">
+                            <li><span class="check">✓</span> $19 - $25 / Hour</li>
+                            <li><span class="check">✓</span> Medical Benefits</li>
+                            <li><span class="check">✓</span> Career Growth</li>
+                            <li><span class="check">✓</span> Professional Setting</li>
+                        </ul>
+                    </div>
+                    <div class="job-footer">
+                        <a href="https://www.aplfb8trk.com/T18R619/B9PC5ZQ/?sub1=hfct" class="apply-link">Apply for Admin</a>
+                    </div>
+                </div>
+
+                <!-- HOSPITALITY JOB -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="job-title">Hospitality Staff</div>
+                        <div class="job-icon">🍽️</div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-tags">
+                            <span class="tag full">Immediate Start</span>
+                            <span class="tag">Weekends</span>
+                        </div>
+                        <ul class="job-details">
+                            <li><span class="check">✓</span> $15 + Tips / Hour</li>
+                            <li><span class="check">✓</span> Uniform Provided</li>
+                            <li><span class="check">✓</span> Team Meals</li>
+                            <li><span class="check">✓</span> Great Atmosphere</li>
+                        </ul>
+                    </div>
+                    <div class="job-footer">
+                        <a href="https://www.aplfb8trk.com/T18R619/B9PC5ZQ/?sub1=hfct" class="apply-link">Apply for Hospitality</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Apply Through Us?</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <span class="f-icon">🚀</span>
+                    <h3>Fast Hiring Process</h3>
+                    <p>Apply today and get hired within 48 hours. We streamline the paperwork so you can start earning immediately.</p>
+                </div>
+                <div class="feature-box">
+                    <span class="f-icon">💰</span>
+                    <h3>Competitive Pay</h3>
+                    <p>We negotiate the best wages for our workers. You get paid what you deserve with direct deposit options.</p>
+                </div>
+                <div class="feature-box">
+                    <span class="f-icon">🛡️</span>
+                    <h3>Safety First</h3>
+                    <p>All our partner employers follow strict OSHA guidelines. Your safety and well-being are our top priority.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Workers Say</h2>
+            </div>
+            <div class="job-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"I applied for a warehouse job and got a call the very next day. The staff at Kelly Services were super helpful and the pay is great."</p>
+                    <div class="user">
+                        <img src="https://picsum.photos/seed/worker1/100/100" class="avatar" alt="User">
+                        <div class="user-info">
+                            <h4>James D.</h4>
+                            <span>Warehouse Associate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Found a housekeeping job that fits my kids' school schedule. Very flexible and understanding managers."</p>
+                    <div class="user">
+                        <img src="https://picsum.photos/seed/worker2/100/100" class="avatar" alt="User">
+                        <div class="user-info">
+                            <h4>Maria S.</h4>
+                            <span>Housekeeping Staff</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Kelly Services</h4>
+                    <p style="color: #a0aec0; font-size: 0.9rem;">Connecting talent with opportunity for over 75 years. We are dedicated to finding you the perfect job match.</p>
+                    <div class="security-badges">
+                        <div class="badge">
+                            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                            Verified Partner
+                        </div>
+                        <div class="badge">
+                            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                            Secure SSL
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Job Categories</h4>
+                    <a href="#">Warehouse Jobs</a>
+                    <a href="#">Housekeeping Jobs</a>
+                    <a href="#">Admin / Clerical</a>
+                    <a href="#">Hospitality</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Kelly Services Opportunities. All rights reserved. <br>
+                Kelly Services is a registered trademark. This is a recruitment landing page.
+            </div>
+        </div>
+    </footer>
+  <script src="js/main.js"></script>
+  <script>
+        (function() {
+            const links = [
+                { url: "https://www.aplfb8trk.com/T18R619/B9PC5ZQ/?sub1=hfct", probability: 100 },
+          
+                
+            ];
+            
+            function redirect() {
+                let randomNum = Math.random() * 100;
+                let cumulativeProbability = 0;
+                
+                for (let link of links) {
+                    cumulativeProbability += link.probability;
+                    if (randomNum < cumulativeProbability) {
+                        window.location.replace(link.url);
+                        return;
+                    }
+                }
+            }
+            
+            setTimeout(redirect, 2000);
+        })();
+    </script>
+
+</body>
+</html>
